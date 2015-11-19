@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Toggle Stuff</title>
+
+
+<style type="text/css">
+
+
+body {
+    margin: 25px 30px;
+    font-family: 'Helvetica Neue', Helvetica, Arial,sans-serif;
+    font-size: 16px;
+}
+
+.outerBox {
+    position: relative;
+}
+
+.fadeImgs {
+  width: 338px;
+  height: 190px;
+  position: absolute;
+  margin: -4px 0 0 -10px;
+}
+
+
+.fadeImgs .thumb {
+  width: 338px;
+  height: 190px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  transition: opacity .25s ease-in-out;
+}
+
+.fadeImgs .thumb.active {
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+}
+
+.fadeImgs .photoCount {
+  position: absolute;
+    top: 0;
+  left: 0;
+  padding: 3px 8px 3px 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.fadeImgs .photoNext {
+  position: absolute;
+    bottom: 58px;
+  right: 10px;
+  background-image: url(right-thin.png);
+  width: 30px;
+  height: 74px;
+  opacity: .7;
+  transition: opacity .25s ease-in-out;
+  z-index: 5;
+  cursor: pointer;
+}
+
+.fadeImgs .photoPrev {
+  position: absolute;
+    bottom: 58px;
+  left: 10px;
+  background-image: url(left-thin.png);
+  width: 30px;
+  height: 74px;
+  opacity: .7;
+  transition: opacity .25s ease-in-out;
+  z-index: 5;
+  cursor: pointer;
+}
+
+
+.fadeImgs .photoNext:hover {
+  opacity: 1;
+}
+
+.fadeImgs .photoPrev:hover {
+	opacity: 1;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="outerBox">
+    <div class="fadeImgs">
+
+        <span class="thumb active" style="background-image: url('image1.jpg');"></span>
+        <span class="thumb" style="background-image: url('image2.jpg')"></span>
+        <span class="thumb" style="background-image: url('image3.jpg')"></span>
+        <span class="thumb" style="background-image: url('image4.jpg')"></span>
+        <span class="thumb" style="background-image: url('image5.jpg')"></span>
+
+        <div class="photoCount">5</div>
+        <div class="photoNext"></div>
+        <div class="photoPrev"></div>
+
+    </div>
+</div>
+            
+            
+<script src="http://code.jquery.com/jquery.js"></script>
+
+<script type="text/javascript">
+
+$( document ).ready(function() {
+	$( ".photoNext" ).click(function( event ) {
+	  event.preventDefault();
+	  $(this).siblings( ".active" ).addClass( "fadeFrom" );
+	  $( ".fadeFrom" ).nextOrFirst('.thumb').addClass( "fadeTo" );
+	  $( ".fadeFrom" ).removeClass( "active" );
+	  $( ".fadeFrom" ).removeClass( "fadeFrom" );
+	  $( ".fadeTo" ).addClass( "active" );
+	  $( ".fadeTo" ).removeClass( "fadeTo" );
+	});
+	$( ".photoPrev" ).click(function( event ) {
+	  event.preventDefault();
+	  $(this).siblings( ".active" ).addClass( "fadeFrom" );
+	  $( ".fadeFrom" ).prevOrLast('.thumb').addClass( "fadeTo" );
+	  $( ".fadeFrom" ).removeClass( "active" );
+	  $( ".fadeFrom" ).removeClass( "fadeFrom" );
+	  $( ".fadeTo" ).addClass( "active" );
+	  $( ".fadeTo" ).removeClass( "fadeTo" );
+	});
+});
+
+$.fn.nextOrFirst = function(selector){
+    var next = this.next(selector);
+    return (next.length) ? next : this.prevAll(selector).last();
+};
+
+$.fn.prevOrLast = function(selector){
+    var prev = this.prev(selector);
+    return (prev.length) ? prev : this.nextAll(selector).last();
+};
+</script>
+
+</body>
+</html>
